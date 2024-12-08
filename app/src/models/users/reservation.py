@@ -1,12 +1,19 @@
 from datetime import datetime
 
 class Reservation:
-    def __init__(self, uid: int, seat_name: str, user: object, showtime: object):
-        self.uid:         int = uid
-        self.seat_name:   str = seat_name
+    def __init__(self, id: int, user: object, seat_name: str, showtime: object):
+        self.id:          int = id
         self.user:     object = user
+        self.seat_name:   str = seat_name
         self.showtime: object = showtime
         self.timestamp:   str = datetime.now()
+        self.status:      str = "Boooked"
+
+    def cancel(self):
+        self.status = "Cancelled"  # Change status to Cancelled
+
+    def complete(self):
+        self.status = "Completed"  # Change status to Completed (when the user uses the reservation)
 
     def __str__(self):
-        return f"Reservation({self.id}, {self.seat_name}, {self.customer_name}, {self.showtime}, {self.timestamp})"
+        return f"Reservation({self.id}, {self.seat_name}, {self.user.email}, {self.showtime}, {self.status}, {self.timestamp})"

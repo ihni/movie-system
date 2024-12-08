@@ -1,7 +1,3 @@
 class User:
-    def __init__(self, email):
+    def __init__(self, email: str):
         self.email = email
-        self.reservations = []
-    
-    def add_reservation(self, reservation):
-        self.reservations.append(reservation)

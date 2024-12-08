@@ -18,6 +18,8 @@ class LinkedList:
         - remove_last()
         - remove_at_index(idx)
 
+    Display
+        - display()
 
     '''
     def __init__(self):
@@ -105,12 +107,11 @@ class LinkedList:
         else:
             print("Index out of range")
 
-    def display(self):
+    def __iter__(self):
         current = self.head
-        if not current:
-            print("List is empty")
-            return
         while current:
-            print(current.data, end=" -> ")
+            yield current.data
             current = current.next
-        print("None")
+    
+    def __str__(self):
+        return " -> ".join(str(item) for item in self)

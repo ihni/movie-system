@@ -33,7 +33,7 @@ class Showtime:
 
         seat_info: object = self.seat_details[seat_name]
 
-        return "This is available" if seat_info["is_available"] else "This seat is already booked"
+        return "This is seat is available" if seat_info["is_available"] else "This seat is not available"
 
     def reserve_seat(self, seat_name: str) -> str:
         """
