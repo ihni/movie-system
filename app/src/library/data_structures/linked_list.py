@@ -19,7 +19,7 @@ class LinkedList:
         - remove_at_index(idx)
 
     Display
-        - display()
+        - __str__ and __iter__
 
     '''
     def __init__(self):
