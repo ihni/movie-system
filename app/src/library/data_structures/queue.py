@@ -16,10 +16,10 @@ class Queue:
     def size(self):
         return len(self.queue) 
 
-    def enqueue(self, element):
+    def enqueue(self, data):
         if self.is_full(self):
             return "Overflow Error"
-        self.queue.append(element)
+        self.queue.append(data)
 
     def dequeue(self):
         if self.is_empty():
