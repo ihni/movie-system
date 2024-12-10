@@ -28,7 +28,7 @@ class ShowtimeService:
         return showtime
     
     def delete_showtime(self, showtime_id: int):
-        result = self.showtimes[showtime_id].get()
+        result = self.showtimes.get(showtime_id)
 
         if result:
             del self.showtimes[showtime_id]
@@ -48,6 +48,13 @@ class ShowtimeService:
         if result:
             return title_to_movie[result]
         return "Could not find movie"
+
+    def get_showtime_by_id(self, id: int):
+        result = self.showtimes.get(id)
+
+        if result:
+            return result
+        return f"Showtime ID: {id} doesn't exist"
 
     def get_showtimes_alphabetically(self) -> list:
         '''

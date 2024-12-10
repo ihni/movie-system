@@ -6,8 +6,8 @@
 - Merge sort for sorting a movie by the title, year, &c..
 - Matrix to represent the seat availability and seating plan of a theatre/showtime
 - Set to store booked seatings to prevent duplication
-- Queue to store the booking process
-- Stack where users can undo their actions in a booking process such as cancel or go back
+- **TODO** Queue to store the booking process
+- **TODO** Stack where users can undo their actions in a booking process such as cancel or go back
 - Binary search for looking at a sorted movie array
 
 ## Models
@@ -19,5 +19,7 @@
 
 ## Services
 - **Reservation Service** is a mediator between the reservations and showtimes. it uses a linked list to keep track of the users' reservation history where the tail node is the latest reservation. it also uses a hashmap for global reservations based on the reservation id for constant lookup.
+- **Showtime Service** is a middleman between the showtimes and movie functionalities(searching for movies, getting movies based on alphabetical order and showtime order). It uses a hash to store the showtimes based on the ID
     - Included the **Merge Sort** algorithm to sort movies by alphabetical, and showtime order.
         - Reasoning: fast and efficient, regardless of space since the application is small
+    - Included the **Binary Search** algorithm to search efficiently through a sorted array of movie titles

@@ -12,5 +12,12 @@ class UserService:
         self.users[email] = user
         return user
     
+
+    '''
+    Getting all users
+    '''
     def get_user(self, email: str) -> object:
         return self.users.get(email)
+    
+    def get_users(self) -> list:
+        return list(self.users.values())

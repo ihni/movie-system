@@ -44,7 +44,7 @@ result = reservation_service.create_reservation(
 result = reservation_service.create_reservation(
     email = demo_user.email,
     showtime = pirates_showtime,
-    seat_name = "AAA",
+    seat_name = "A5",
 )
 
 utilities.display_seats_for_showtime(showtime = pirates_showtime)
