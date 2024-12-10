@@ -116,7 +116,8 @@ class Initializer:
         print(f"• This program showcases the data structures and algorithm we've learned")
         print(f"• READ/WRITE for the data is currently not available")
         print(f"• {COLOR['YELLOW']}EVERYTHING YOU DO WILL NOT BE SAVED{COLOR['ENDC']}")
-        input(f"{COLOR['CYAN']}Press enter to continue...{COLOR['ENDC']} ")
+        input(f"{COLOR['CYAN']}\nPress enter to continue...{COLOR['ENDC']} ")
+        self.utilities.clear()
 
     def init(self):
         result = []
@@ -143,5 +144,5 @@ class Initializer:
             print(f"{COLOR['GREEN']}The initialization process was successful{COLOR['ENDC']}")
             print(f"Booting up the program...")
             sleep(0.4)
-            os.system('cls')
+            self.utilities.clear()
             self.welcome()

@@ -90,3 +90,6 @@ class Utilities:
 
         colored_text += "\033[0m"  # Reset color at the end
         return colored_text
+    
+    def clear(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
