@@ -1,3 +1,7 @@
+'''
+Currently combining the initialization of demo data and the first concepts of the CLi
+'''
+
 from app.src.services import (
     ShowtimeService,
     UserService,
@@ -13,6 +17,8 @@ from app.src.utilities.utilities import Utilities, COLOR
 from datetime import datetime
 from time import sleep
 import os
+
+from app.config.config import ASCII_LOGO
 
 class Test:
 
@@ -119,13 +125,23 @@ class Test:
         print(f"{COLOR['GREEN']}Finished initializing reservations{COLOR['ENDC']}")
         return 0
     
+    def welcome(self):
+        colored_logo = self.utilities.rainbow_text(ASCII_LOGO)
+        print(colored_logo)
+        print(f"Welcome to the {COLOR['ORANGE']}Movie Ticket Booking System{COLOR['ENDC']} created for the DSA Finals Project")
+        input()
+        
     def init(self):
         result = []
 
         result.append(self.initialize_users())
+        sleep(0.1)
         result.append(self.initialize_theatres())
+        sleep(0.1)
         result.append(self.initialize_movies())
+        sleep(0.1)
         result.append(self.initialize_showtimes())
+        sleep(0.1)
         result.append(self.initialize_reservations())
 
         if sum(result) < 0:
@@ -136,9 +152,12 @@ class Test:
             else:
                 exit()
         else:
+            sleep(0.1)
             print(f"{COLOR['GREEN']}The initialization process was successful{COLOR['ENDC']}")
-            input(f"{COLOR['YELLOW']}Press enter to continue > {COLOR['ENDC']}")
+            print(f"Booting up the program...")
+            sleep(0.4)
             os.system('cls')
+            self.welcome()
         
 
 test = Test()
