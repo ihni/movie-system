@@ -1,5 +1,5 @@
-from models import Showtime
-from library import MergeSort
+from ...models import Showtime
+from ...library import MergeSort
 
 class ShowtimeService:
     def __init__(self):
@@ -32,7 +32,7 @@ class ShowtimeService:
             del self.showtimes[showtime_id]
             return "Successfully deleted the showtime"
         return "Could not delete the showtime"
-    
+
     def get_showtimes_alphabetically(self) -> list:
         '''
         Creates a dictionary to store the title of the movie with the showtime object
@@ -69,7 +69,6 @@ class ShowtimeService:
             sorted_datetimes.append(datetime_to_showtime[sorted_datetime])
         
         return sorted_datetimes
-
 
     def get_showtimes(self):
         return list(self.showtimes.values())

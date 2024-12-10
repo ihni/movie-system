@@ -11,8 +11,10 @@
 - Binary search for looking at a sorted movie array
 
 ## Models
-- **Showtime** critical piece of the system so having constant time lookup, search, insertion, deletions, &c is important. We used hashmaps and sets for their O(1) time complexity to store information about the seating plans(booking a seat, checking if a seat is available, releasing a seat).
 - **Theatre** generates a matrix as the most appropriate data structure for showcasing a seating plan that has rows and columns. This makes access to a seat easy by calling its respective row and column
+- **Showtime** critical piece of the system so having constant time lookup, search, insertion, deletions, &c is important. We used hashmaps and sets for their O(1) time complexity to store information about the seating plans(booking a seat, checking if a seat is available, releasing a seat).
+    - the seating plan and availability uses a matrix of seat objects similar to the theatre
+    - Use of sets to prevent duplication of seats
 - **Reservation** stores an instance of a movie, showtime, user, theatre, and a string for the seatname
 
 ## Services

@@ -1,5 +1,5 @@
-from library import LinkedList
-from models import Reservation
+from ...library import LinkedList
+from ...models import Reservation
 
 class ReservationService:
     def __init__(self, user_service):
@@ -21,7 +21,7 @@ class ReservationService:
             return "User not found."
 
         availability_status = showtime.check_seat_availability(seat_name)
-        if "not available" in availability_status:
+        if "not available" in availability_status or "not exist" in availability_status:
             return availability_status
         
         reservation = Reservation(

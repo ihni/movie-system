@@ -13,8 +13,12 @@ class Showtime:
         self.booked_seats:  set = set()
         self.seat_details: dict = {}
 
-        for seat in self.theatre.seats:
-            self.seat_details[seat.name] = {"is_available": True, "seat_obj": seat}
+        for row in self.theatre.seats:
+            for seat in row:
+                self.seat_details[seat.name] = {
+                    "is_available": True,
+                    "seat_obj": seat
+                }
 
 
     def is_fully_booked(self) -> bool:
@@ -112,9 +116,10 @@ class Showtime:
     def get_seating_matrix(self) -> list[list]:
         seats = []
         seating_matrix = []
-        for data in self.seat_details.values():
-            seats.append(data[1]) # this is appending the seat object from the value list
         
+        for key, _ in self.seat_details.items():
+           seat = self.seat_details[key]["seat_obj"]
+           seats.append(seat) # this is appending the seat object from the value list
         rows = self.theatre.total_rows
         columns = self.theatre.total_columns
 
@@ -122,12 +127,17 @@ class Showtime:
         for _ in range(rows):
             seat_row = []
             for _ in range(columns):
-                if counter > len(seats):
+                if counter > len(seats)-1:
                     return "Error, Overflow of seats"
                 seat_row.append(seats[counter])
                 counter += 1
             seating_matrix.append(seat_row)
         return seating_matrix
+
+    def display_for_user(self):
+        return (
+            f"Showtime for {self.movie.title} at {self.showtime.strftime('%Y-%m-%d %H:%M:%S')}"
+        )
 
     def __str__(self):
         booked = len(self.booked_seats)

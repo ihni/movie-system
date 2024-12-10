@@ -1,4 +1,4 @@
-from library import LinkedList
+from ...library import LinkedList
 
 class User:
     def __init__(self, email: str):

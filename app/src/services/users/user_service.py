@@ -1,4 +1,4 @@
-from models import User
+from ...models import User
 
 class UserService:
     def __init__(self):

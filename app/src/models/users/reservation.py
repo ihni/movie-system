@@ -16,4 +16,8 @@ class Reservation:
         self.status = "Completed"  # Change status to Completed (when the user uses the reservation)
 
     def __str__(self):
-        return f"Reservation({self.id}, {self.seat_name}, {self.user.email}, {self.showtime}, {self.status}, {self.timestamp})"
+        return (
+            f"Reservation (ID-{self.id}):\n"
+            f"{self.seat_name}, {self.user.email}, {self.showtime.display_for_user()}\n"
+            f"Status: {self.status} - {self.timestamp}"
+        )

@@ -9,12 +9,14 @@ from app.src.models import (
     Theatre,
 )
 
+from app.src.utilities.utilities import Utilities
 from datetime import datetime
 
 ''' Initializing Service '''
-showtime_service = ShowtimeService()
 user_service = UserService()
-reservation_service = ReservationService()
+showtime_service = ShowtimeService()
+reservation_service = ReservationService(user_service)
+utilities = Utilities()
 
 ''' Initializing Dummy Data '''
 pirates_movie = Movie("Pirates of the Caribbean", 128)
@@ -32,8 +34,19 @@ pirates_showtime = showtime_service.create_showtime(
     theatre = raspi_theatre,
     showtime = datetime.now()
 )
-reservation = reservation_service.create_reservation(
+
+result = reservation_service.create_reservation(
     email = demo_user.email,
     showtime = pirates_showtime,
     seat_name = "A4",
 )
+
+print(result)
+
+result = reservation_service.create_reservation(
+    email = demo_user.email,
+    showtime = pirates_showtime,
+    seat_name = "AAA",
+)
+print(result)
+utilities.display_seats_for_showtime(showtime = pirates_showtime)
