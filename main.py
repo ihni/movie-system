@@ -41,12 +41,13 @@ result = reservation_service.create_reservation(
     seat_name = "A4",
 )
 
-print(result)
-
 result = reservation_service.create_reservation(
     email = demo_user.email,
     showtime = pirates_showtime,
     seat_name = "AAA",
 )
-print(result)
+
 utilities.display_seats_for_showtime(showtime = pirates_showtime)
+
+result = showtime_service.search_movie_title("Pirates of the Caribbean")
+print(result)

@@ -1,10 +1,12 @@
 from ...models import Showtime
-from ...library import MergeSort
+from ...library import MergeSort, BinarySearch
 
 class ShowtimeService:
     def __init__(self):
         self.showtimes = {}
         self.id = 1
+        self.sort_function = MergeSort().merge_sort
+        self.search_function = BinarySearch().search
 
     def create_showtime(self, movie: object, theatre: object, showtime: object) -> Showtime:
         """
@@ -33,6 +35,20 @@ class ShowtimeService:
             return "Successfully deleted the showtime"
         return "Could not delete the showtime"
 
+    def search_movie_title(self, search: str) -> object:
+        movie_titles = []
+        title_to_movie = {}
+        showtimes = self.get_showtimes_alphabetically()
+        for showtime in showtimes:
+            movie = showtime.movie
+            movie_titles.append(movie.title)
+            title_to_movie[movie.title] = movie
+
+        result, _ = self.search_function(movie_titles, search)
+        if result:
+            return title_to_movie[result]
+        return "Could not find movie"
+
     def get_showtimes_alphabetically(self) -> list:
         '''
         Creates a dictionary to store the title of the movie with the showtime object
@@ -46,7 +62,7 @@ class ShowtimeService:
             title_to_showtime[movie_title] = showtime
             unsorted_movie_titles.append(movie_title)
 
-        sorted_movie_titles = MergeSort.merge_sort(unsorted_movie_titles)
+        sorted_movie_titles = self.sort_function(unsorted_movie_titles)
 
         sorted_showtimes_alphabetically = []
         for sorted_title in sorted_movie_titles:
@@ -62,7 +78,7 @@ class ShowtimeService:
             datetime_to_showtime[datetime] = showtime
             unsorted_datetimes.append(datetime)
 
-        sorted_datetimes = MergeSort.merge_sort(unsorted_datetimes)
+        sorted_datetimes = self.sort_function(unsorted_datetimes)
 
         sorted_datetimes = []
         for sorted_datetime in sorted_datetimes:
