@@ -38,4 +38,4 @@ class Theatre:
         return row, column
 
     def __str__(self):
-        return f"{self.movies} playing at theatre {self.location}"
+        return f"Theatre: {self.location}"

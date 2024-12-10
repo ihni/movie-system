@@ -9,8 +9,10 @@ from app.src.models import (
     Movie,
 )
 
-from app.src.utilities.utilities import Utilities
+from app.src.utilities.utilities import Utilities, COLOR
 from datetime import datetime
+from time import sleep
+import os
 
 class Test:
 
@@ -23,11 +25,12 @@ class Test:
         "Mango" : [rows := 5, columns := 10],
     }
 
-    DUMMY_MOVIES = {
+    DUMMY_MOVIES = {    # key is the title and value is the duration in minutes
         "Pirates of the Caribbean" : 128,
         "Transformers 1" : 127,
         "Moana 2" : 78
     }
+
     def __init__(self):
         self.user_service = UserService()
         self.showtime_service = ShowtimeService()
@@ -37,64 +40,107 @@ class Test:
 
     def initialize_users(self):
         print("Initializing users...")
-        self.user_service.register(email for email in Test.DUMMY_EMAILS)
+        for email in Test.DUMMY_EMAILS:
+            self.user_service.register_user(email)
         
         if len(self.user_service.get_users()) == len(Test.DUMMY_EMAILS):
-            print("Finished initializing users!")
+            print(f"{COLOR['GREEN']}Finished initializing users!{COLOR['ENDC']}")
             return 0
         else:
-            print("An error occured with the user initialization process")
+            print(f"{COLOR['RED']}An error occured with the user initialization process{COLOR['ENDC']}")
             return -1
         
     def initialize_theatres(self):
         print("Initializing theatres...")
-        for key, value in Test.DUMMY_THEATRE_LOCATIONS.items():
+        for key, value in Test.DUMMY_THEATRES.items():
             theatre = self.theatre_service.create_theatre(
                 location = key,
                 total_rows = value[0],
-                total_columns = value[2]
+                total_columns = value[1]
             )
             print(f"Created theatre: {theatre}")
         
         if len(self.theatre_service.get_theatres()) == len(Test.DUMMY_THEATRES):
-            print("Finished initializing theatres")
+            print(f"{COLOR['GREEN']}Finished initializing theatres{COLOR['ENDC']}")
             return 0
         else:
-            print("An error occured with the theatre initialization process")
+            print(f"{COLOR['RED']}An error occured with the theatre initialization process{COLOR['ENDC']}")
+            return -1
 
-    def initialize_dummy_data(self):
-        raspi_theatre = Theatre(
-            location="1",
-            total_rows= 10,
-            total_columns= 5
-        )
+    def initialize_movies(self):
+        print("Initializing movies ...")
+        for key, value in Test.DUMMY_MOVIES.items():
+            movie = self.theatre_service.create_movie(
+                title = key,
+                duration = value
+            )
+            print(f"Created movie: {movie}")
 
-        pirates_movie = Movie("Pirates of the Caribbean", 128)
-        
-        self.showtime_service.create_showtime(
-            movie = pirates_movie,
-            theatre = raspi_theatre,
-            showtime = datetime.now()
-        )
-
-        self.user_service.register_user("demo@demo.org")
-
-        result = self.reservation_service.create_reservation(
-            email = "demo@demo.org",
-            showtime = self.showtime_service.get_showtime_by_id(1),
-            seat_name = "A4",
-        )
-
-        self.utilities.display_seats_for_showtime(
-            self.showtime_service.get_showtime_by_id(1)
-        )
-
-        if type(result) == str:
-            return result
+        if len(self.theatre_service.get_movies()) == len(Test.DUMMY_MOVIES):
+            print(f"{COLOR['GREEN']}Finished initializing movies{COLOR['ENDC']}")
+            return 0
         else:
-            return "Successfully registered"
+            print(f"{COLOR['RED']}An error occured with the theatre initialization process{COLOR['ENDC']}")
+            return -1
+        
+    def initialize_showtimes(self):
+        movies: list = self.theatre_service.get_movies()
+        theatres: list = self.theatre_service.get_theatres()
 
+        print("Initializing showtimes...")
+        for movie in movies:
+            result = self.showtime_service.create_showtime(
+                movie = movie,
+                theatre = theatres[0],
+                showtime = datetime.now()
+            )
+            if type(result) == str:
+                print(f"{COLOR['RED']}Error creating showtime for Movie: {movie}{COLOR['ENDC']}")
+            else:    
+                print(f"Created showtime: {result}")
+        
+        if len(self.showtime_service.get_showtimes()) == len(Test.DUMMY_MOVIES):
+            print(f"{COLOR['GREEN']}Finished showtime initialization{COLOR['ENDC']}")
+            return 0
+        else:
+            print(f"{COLOR['RED']}An error occured with the showtime initialization process{COLOR['ENDC']}")
+            return -1
+        
+    def initialize_reservations(self):
+        print("Initializing reservations...")
+        users = self.user_service.get_users()
+
+        for i, user in enumerate(users):
+            self.reservation_service.create_reservation(
+                email = user.email,
+                showtime = self.showtime_service.get_showtime_by_id(1),
+                seat_name = f"A{i+2}"
+            )
+        print(f"{COLOR['GREEN']}Finished initializing reservations{COLOR['ENDC']}")
+        return 0
+    
+    def init(self):
+        result = []
+
+        result.append(self.initialize_users())
+        result.append(self.initialize_theatres())
+        result.append(self.initialize_movies())
+        result.append(self.initialize_showtimes())
+        result.append(self.initialize_reservations())
+
+        if sum(result) < 0:
+            print(f"{COLOR['RED']}An error occured in the initialization process{COLOR['ENDC']}")
+            reinit = input(f"{COLOR['YELLOW']}Would you like to reinitialize? (y/n) > {COLOR['ENDC']}")
+            if reinit.lower == 'y':
+                self.init()
+            else:
+                exit()
+        else:
+            print(f"{COLOR['GREEN']}The initialization process was successful{COLOR['ENDC']}")
+            input(f"{COLOR['YELLOW']}Press enter to continue > {COLOR['ENDC']}")
+            os.system('cls')
+        
 
 test = Test()
 
-test.initialize_dummy_data()
+test.init()

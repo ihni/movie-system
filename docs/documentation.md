@@ -23,3 +23,5 @@
     - Included the **Merge Sort** algorithm to sort movies by alphabetical, and showtime order.
         - Reasoning: fast and efficient, regardless of space since the application is small
     - Included the **Binary Search** algorithm to search efficiently through a sorted array of movie titles
+- **User Service** handles the creation of users
+- **Theatre Service** handles the creation of movies and theatres
