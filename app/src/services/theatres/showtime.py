@@ -72,5 +72,5 @@ class ShowtimeService:
 
 
     def get_showtimes(self):
-        return self.showtimes.values()
+        return list(self.showtimes.values())
         

@@ -83,6 +83,7 @@ class Showtime:
     '   Getters
     '   get_movie() -> returns the movie of the showtime  
     '   get_theatre() -> returns the theatre that the showtime belongs to
+    '   get_seating_matrix () -> returns a matrix of seat objects according to the theatre seating configuration
     '   get_showtime_info() -> returns a dictionary of info
     '                       - movie, showtime, total_seats, booked_seats, available_seats, is_fully_booked, status, movie_duration
     '
@@ -108,6 +109,26 @@ class Showtime:
             'is_fully_booked' : self.is_fully_booked(),
         }
     
+    def get_seating_matrix(self) -> list[list]:
+        seats = []
+        seating_matrix = []
+        for data in self.seat_details.values():
+            seats.append(data[1]) # this is appending the seat object from the value list
+        
+        rows = self.theatre.total_rows
+        columns = self.theatre.total_columns
+
+        counter = 0
+        for _ in range(rows):
+            seat_row = []
+            for _ in range(columns):
+                if counter > len(seats):
+                    return "Error, Overflow of seats"
+                seat_row.append(seats[counter])
+                counter += 1
+            seating_matrix.append(seat_row)
+        return seating_matrix
+
     def __str__(self):
         booked = len(self.booked_seats)
         available = self.theatre.total_seats - booked

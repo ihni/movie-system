@@ -16,4 +16,6 @@
 - **Reservation** stores an instance of a movie, showtime, user, theatre, and a string for the seatname
 
 ## Services
-- **Reservation Service** is a mediator between the reservations and showtimes. it uses a linked list to keep track of the users' reservation history where the tail node is the latest reservation. it also uses a hashmap for global reservations based on the reservation id for constant lookup
+- **Reservation Service** is a mediator between the reservations and showtimes. it uses a linked list to keep track of the users' reservation history where the tail node is the latest reservation. it also uses a hashmap for global reservations based on the reservation id for constant lookup.
+    - Included the **Merge Sort** algorithm to sort movies by alphabetical, and showtime order.
+        - Reasoning: fast and efficient, regardless of space since the application is small

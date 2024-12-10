@@ -74,3 +74,9 @@ class ReservationService:
             return "User not found."
         
         return user.reservation_history
+    
+    def write_reservation_to_file(self, reservation: object):
+        pass
+
+    def load_reservations_from_file(self):
+        pass
