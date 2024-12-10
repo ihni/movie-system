@@ -113,7 +113,7 @@ class Showtime:
             'is_fully_booked' : self.is_fully_booked(),
         }
     
-    def get_seating_matrix(self) -> list[list]:
+    def get_seat_matrix(self) -> list[list]:
         seats = []
         seating_matrix = []
         

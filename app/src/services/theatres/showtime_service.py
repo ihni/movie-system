@@ -56,6 +56,22 @@ class ShowtimeService:
             return result
         return f"Showtime ID: {id} doesn't exist"
 
+    def get_showtimes_by_movie_title(self, title: str) -> list:
+        """
+        Returns a list of showtimes for a given movie title.
+
+        :param title: The title of the movie to search for.
+        :return: A list of Showtime objects that correspond to the movie title.
+        """
+        matching_showtimes = []
+
+        # Iterate through all showtimes and check if the movie title matches
+        for showtime in self.showtimes.values():
+            if showtime.movie.title.lower() == title.lower():
+                matching_showtimes.append(showtime)
+
+        return matching_showtimes
+
     def get_showtimes_alphabetically(self) -> list:
         '''
         Creates a dictionary to store the title of the movie with the showtime object

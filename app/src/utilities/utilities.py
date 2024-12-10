@@ -33,7 +33,7 @@ COLOR = {
 
 class Utilities:
     def display_seats_for_showtime(self, showtime: object):
-        seat_matrix = showtime.get_seating_matrix()
+        seat_matrix = showtime.get_seat_matrix()
 
         for row in seat_matrix:
             for seat in row:
@@ -46,7 +46,7 @@ class Utilities:
             print()
 
     def display_seats_binary(self, showtime: object):
-        seat_matrix = showtime.get_seating_matrix()
+        seat_matrix = showtime.get_seat_matrix()
 
         for row in seat_matrix:
             for seat in row:
