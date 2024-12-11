@@ -21,6 +21,7 @@ COLOR = {
     "LIGHT_PURPLE" : "\033[1;35m",
     "LIGHT_CYAN" : "\033[1;36m",
     "LIGHT_WHITE" : "\033[1;37m",
+    "MAGENTA" : "\033[35m",
     "ENDC" : "\33[0m"
 }
 #BOLD = "\033[1m"

@@ -7,14 +7,16 @@ from ..initialization.initializer import Initializer
 GREY = '\033[90m'         # Grey for unavailable seats
 WHITE = '\033[97m'        # White for available seats
 GREEN = '\033[32m'        # Green for success messages and reserved seat
-BLUE = '\033[34m'         # Blue for prompts
+BLUE = '\033[34m'
 RED = '\033[31m'          # Red for error messages
 YELLOW = '\033[33m'       # Yellow for information messages
 RESET = '\033[0m'         # Reset color
+LIGHT_CYAN = "\033[1;36m"
 
 class MovieSystemCLI(cmd.Cmd):
     intro = f"{GREEN}Welcome to the Movie Reservation System! Type help or ? to list commands.{RESET}"
-    prompt = f"{BLUE}(movie-reservation) > {RESET}"
+    prompt = (f"╭─{WHITE}developer@{LIGHT_CYAN}movie-reservation{RESET}\n"
+              f"╰─ {LIGHT_CYAN}~{RESET} ")
 
     def __init__(self, theatre_service, reservation_service, user_service, showtime_service):
         super().__init__()
@@ -59,17 +61,18 @@ class MovieSystemCLI(cmd.Cmd):
 
         # Step 6: Input email
         email = input(f"{BLUE}Enter your email: {RESET}").strip()
-        user = self.user_service.find_user_by_email(email)
+        user = self.user_service.get_user(email)
+        print(user)
         if not user:
             print(f"{YELLOW}No account found for {email}. Creating a new account...{RESET}")
-            user = self.user_service.create_user(email)
-
+            user = self.user_service.register_user(email)
+        print(user)
         # Step 7: Attempt reservation
-        if self.reservation_service.is_seat_available(selected_showtime, seat_name):
-            self.reservation_service.create_reservation(selected_showtime.movie, selected_showtime, seat_name, user)
-            print(f"{GREEN}Seat {seat_name} reserved successfully for {movie_title} at {selected_showtime.time}.{RESET}")
+        result = self.reservation_service.create_reservation(user.email, selected_showtime, seat_name)
+        if type(result) == str:
+            print(f"{GREY}Could not reserve the seat: {result}{RESET}")
         else:
-            print(f"{GREY}Seat {seat_name} is already reserved.{RESET}")
+            print(f"{GREEN}Seat {seat_name} reserved successfully for {movie_title} at {selected_showtime.showtime}.{RESET}")
 
     def do_list_movies(self, arg):
         """
@@ -102,13 +105,15 @@ class MovieSystemCLI(cmd.Cmd):
         View all reservations for a specific email: view_reservations <email>
         """
         email = arg.strip()
-        user = self.user_service.find_user_by_email(email)
+        user = self.user_service.get_user(email)
         if user:
-            reservations = self.reservation_service.get_reservations_for_user(user)
-            if reservations:
+            reservations = self.reservation_service.get_user_reservation_history(user)
+            if type(reservations) != str:
                 print(f"{GREEN}Reservations for {email}:{RESET}")
-                for idx, reservation in enumerate(reservations, start=1):
-                    print(f"{idx}. Movie: {reservation.movie.title}, Theatre: {reservation.showtime.theatre.location}, Showtime: {reservation.showtime.time}, Seat: {reservation.seat_name}")
+                reservations_iter = (iter(reservations))
+                for i in range(reservations.get_size()):
+                    print(next(reservations_iter))
+                    #print(f"{idx}. Movie: {reservation.showtime.movie.title}, Theatre: {reservation.showtime.theatre.location}, Showtime: {reservation.showtime.time}, Seat: {reservation.seat_name}")
             else:
                 print(f"{GREY}No reservations found for {email}.{RESET}")
         else:

@@ -25,6 +25,16 @@ class LinkedList:
     def __init__(self):
         self.head = None
 
+    def get_size(self):
+        if not self.head:
+            return 0
+        current = self.head
+        size = 1
+        while current.next:
+            current = current.next
+            size += 1
+        return size
+
     def insert_to_beginning(self, data):
         node: object = Node(data)
         node.next = self.head

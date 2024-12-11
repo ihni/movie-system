@@ -7,6 +7,9 @@ class ReservationService:
         self.user_service = user_service
         self.id = 1
 
+    def get_reservations(self):
+        return list(self.reservation_history.values())
+
     def create_reservation(self, email: str, showtime: object, seat_name: str):
         """
         Create a reservation for a user.
@@ -34,7 +37,7 @@ class ReservationService:
         self.reservation_history[self.id] = reservation
         self.id += 1
 
-        user.reservation_history.insert_to_end(reservation)
+        user.reservation_history.insert_to_beginning(reservation)
         showtime.reserve_seat(seat_name)
         return reservation
 
