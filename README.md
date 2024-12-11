@@ -1,6 +1,6 @@
 # Movie Reservation System with Data Structures and Algorithms
 
-This project is a movie reservation system that incorporates various data structures and algorithms to handle functionality such as seat reservation, movie showtimes, and user management. It demonstrates the use of data structures like lists, dictionaries, and custom implementations of sorting and searching algorithms.
+This project is a movie reservation system that incorporates various data structures and algorithms to handle functionality such as seat reservation, movie showtimes, and user management.
 
 ## Features
 
@@ -14,25 +14,28 @@ This project is a movie reservation system that incorporates various data struct
 
 - **Merge Sort**: Used for sorting movie titles and showtimes.
 - **Binary Search**: Used for searching movie titles.
-- **Queue**: To rotate movies and showtimes.
-- **Dictionary**: Storing showtimes and movie details.
-- **Linked List**: Potentially used for managing user reservations or showtimes.
+- **Hashmap**: Storing showtimes, movies, theatres, users, and reservations.
+- **Linked List**: Used for managing the reservation history of a user.
 
 ## Installation
 
-1. Clone this repository to your local machine:
+1. Clone this repository to your home folder:
+
    ```bash
    git clone https://github.com/ihni/movie-system.git
    ```
 2. Navigate to the project folder:
+
     ```bash
     cd movie-system
     ```
 3. Install dependencies (if any):
+
     ```bash
     pip install -r requirements.txt
     ```
 4. Run the application:
+
     ```bash
     python main.py
     ```
@@ -41,6 +44,7 @@ This project is a movie reservation system that incorporates various data struct
 
 ### 1. Start the CLI:
 - Run the following command to start the movie reservation system CLI:
+
     ```bash
     python main.py
     ```

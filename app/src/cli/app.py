@@ -36,7 +36,7 @@ class MovieSystemCLI(cmd.Cmd):
         movie_title = arg.strip()
 
         if not movie_title:
-            print(f"{RED}Enter a movie title: reserve <movie_title>{RESET}")
+            print(f"{YELLOW}Enter a movie title: reserve <movie_title>{RESET}")
             return
 
         # Step 1: Find the movie showtimes (not the movie directly)
@@ -108,6 +108,10 @@ class MovieSystemCLI(cmd.Cmd):
         View all reservations for a specific email: view_reservations <email>
         """
         email = arg.strip()
+        if not email:
+            print(f"{YELLOW}Enter an email to view the reservations: view_reservations <email>{RESET}")
+            return
+        
         user = self.user_service.get_user(email)
         if not user:
             print(f"{RED}User with email '{email}' not found.{RESET}")
@@ -124,13 +128,6 @@ class MovieSystemCLI(cmd.Cmd):
                 showtime = reservation.showtime.showtime
                 data.append([reservation.id, movie_title, theatre_location, reservation.seat_name, showtime])
             print(tabulate(data, headers="firstrow", tablefmt="grid"))
-                # print(
-                #       f"Reservation ID: {reservation.id}\n"
-                #       f"Reservation for {reservation.user.email}\n"
-                #       f"Seat: {reservation.seat_name}\n"
-                #       f"{reservation.showtime.display_for_user()}\n"
-                #       f"Status: {reservation.status} - {reservation.timestamp}"
-                # )
         else:
             print(f"{GREY}No reservations found for {email}.{RESET}")
 
