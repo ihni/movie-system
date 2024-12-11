@@ -53,7 +53,8 @@ class ReservationService:
         if not user:
             return "User not found"
 
-        reservation = self.reservation_history.get(reservation_id)
+        reservation = user.reservation_history.get(reservation_id)
+
         if not reservation:
             return "Reservation not found"
         
@@ -73,6 +74,7 @@ class ReservationService:
         :return: Linked List of reservations
         """
         user = self.user_service.get_user(email)
+        print(f"Searched for: {user}")
         if not user:
             return "User not found."
         

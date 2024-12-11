@@ -1,6 +1,7 @@
 import cmd
 from ..utilities import Utilities
 from datetime import datetime
+from tabulate import tabulate
 import os
 from ..initialization.initializer import Initializer
 
@@ -34,6 +35,10 @@ class MovieSystemCLI(cmd.Cmd):
         """
         movie_title = arg.strip()
 
+        if not movie_title:
+            print(f"{RED}Enter a movie title: reserve <movie_title>{RESET}")
+            return
+
         # Step 1: Find the movie showtimes (not the movie directly)
         showtimes = self.showtime_service.get_showtimes_by_movie_title(movie_title)
         if not showtimes:
@@ -62,11 +67,9 @@ class MovieSystemCLI(cmd.Cmd):
         # Step 6: Input email
         email = input(f"{BLUE}Enter your email: {RESET}").strip()
         user = self.user_service.get_user(email)
-        print(user)
         if not user:
             print(f"{YELLOW}No account found for {email}. Creating a new account...{RESET}")
             user = self.user_service.register_user(email)
-        print(user)
         # Step 7: Attempt reservation
         result = self.reservation_service.create_reservation(user.email, selected_showtime, seat_name)
         if type(result) == str:
@@ -106,18 +109,30 @@ class MovieSystemCLI(cmd.Cmd):
         """
         email = arg.strip()
         user = self.user_service.get_user(email)
-        if user:
-            reservations = self.reservation_service.get_user_reservation_history(user)
-            if type(reservations) != str:
-                print(f"{GREEN}Reservations for {email}:{RESET}")
-                reservations_iter = (iter(reservations))
-                for i in range(reservations.get_size()):
-                    print(next(reservations_iter))
-                    #print(f"{idx}. Movie: {reservation.showtime.movie.title}, Theatre: {reservation.showtime.theatre.location}, Showtime: {reservation.showtime.time}, Seat: {reservation.seat_name}")
-            else:
-                print(f"{GREY}No reservations found for {email}.{RESET}")
-        else:
+        if not user:
             print(f"{RED}User with email '{email}' not found.{RESET}")
+            return
+        
+        reservations = user.reservation_history
+        if type(reservations) != str:
+            reservation_iter = iter(reservations)
+            print(f"{GREEN}Reservations for {email}:{RESET}")
+            data = [["ID", "Movie", "Theatre", "Seat", "Showtime"]]
+            for reservation in reservation_iter:
+                movie_title = reservation.showtime.movie.title
+                theatre_location = reservation.showtime.theatre.location
+                showtime = reservation.showtime.showtime
+                data.append([reservation.id, movie_title, theatre_location, reservation.seat_name, showtime])
+            print(tabulate(data, headers="firstrow", tablefmt="grid"))
+                # print(
+                #       f"Reservation ID: {reservation.id}\n"
+                #       f"Reservation for {reservation.user.email}\n"
+                #       f"Seat: {reservation.seat_name}\n"
+                #       f"{reservation.showtime.display_for_user()}\n"
+                #       f"Status: {reservation.status} - {reservation.timestamp}"
+                # )
+        else:
+            print(f"{GREY}No reservations found for {email}.{RESET}")
 
     def do_exit(self, arg):
         """

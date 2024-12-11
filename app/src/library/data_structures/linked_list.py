@@ -116,6 +116,23 @@ class LinkedList:
             current.next = current.next.next
         else:
             print("Index out of range")
+    
+
+    '''Modified it to account for reservation ID'''
+    def get_node(self, value):
+        if not self.head:
+            return
+        print(f"searching for node: {value}")
+        if self.head.value.id == value:
+            return self.head.value
+        
+        current = self.head
+
+        while current:
+            if current.value.id == value:
+                return current.value
+            current = current.next
+        return None
 
     def __iter__(self):
         current = self.head

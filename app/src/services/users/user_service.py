@@ -17,9 +17,9 @@ class UserService:
     '''
     def get_user(self, email: str) -> object:
         user = self.users.get(email)
-        if not user:
-            return None
-        return user
+        if user:
+            return user
+        return None
     
     def get_users(self) -> list:
         users = list(self.users.values())
