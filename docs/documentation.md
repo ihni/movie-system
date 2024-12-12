@@ -25,3 +25,7 @@
     - Included the **Binary Search** algorithm to search efficiently through a sorted array of movie titles
 - **User Service** handles the creation of users
 - **Theatre Service** handles the creation of movies and theatres
+
+
+-**TODO** when reserve is called without arg, show the movies
+-**TODO** fix bug when out of bounds seat name is called
