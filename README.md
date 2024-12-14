@@ -1,6 +1,6 @@
 # Movie Reservation System with Data Structures and Algorithms
 
-This project is a movie reservation system that incorporates various data structures and algorithms to handle functionality such as seat reservation, movie showtimes, and user management.
+This project is a movie reservation system to display data structures and algorithms for handling functionality such as seat reservation, movie showtimes, and user management.
 
 ## Features
 
@@ -11,7 +11,7 @@ This project is a movie reservation system that incorporates various data struct
 - **Seat Matrix Display**: Visualize available and reserved seats for a particular showtime.
 
 ## Data Structures and Algorithms Used
-
+- **Matrix**: Used for displaying the seats in a row-column order.
 - **Merge Sort**: Used for sorting movie titles and showtimes.
 - **Binary Search**: Used for searching movie titles.
 - **Hashmap**: Storing showtimes, movies, theatres, users, and reservations.
@@ -58,12 +58,3 @@ This project is a movie reservation system that incorporates various data struct
  ### 3. Flow of Reservation:
  1. Reserve a seat:
  - 
-
- ## Contributing
-
- Contributions are welcome! If you have any suggestions or want to fix a bug, feel free to fork the repository and submit a pull request.
- 1. Fork the repository.
- 2. Create a new branch (git checkout -b feature-branch).
- 3. Make your changes and commit them (git commit -am 'Add new feature').
- 4. Push to the branch (git push origin feature-branch)
- 5. Open a pull request.
