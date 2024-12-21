@@ -1,0 +1,3 @@
+- 12/16/2024
+    - `showtime_service.py`: the function for sorting an array of showtimes based on the showtime(datetime) returns an empty array
+        - this is a bug as sorting by alphabetical order works

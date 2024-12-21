@@ -1,23 +1,22 @@
 import cmd
 from ..utilities import Utilities
 from datetime import datetime
-from tabulate import tabulate
 import os
+import re
 from ..initialization.initializer import Initializer
 
 GREY = '\033[90m'         # Grey for unavailable seats
 WHITE = '\033[97m'        # White for available seats
-GREEN = '\033[32m'        # Green for success messages and reserved seat
 BLUE = '\033[34m'
 RED = '\033[31m'          # Red for error messages
 YELLOW = '\033[33m'       # Yellow for information messages
 RESET = '\033[0m'         # Reset color
 LIGHT_CYAN = "\033[1;36m"
+GREEN = "\033[92m"
 
 class MovieSystemCLI(cmd.Cmd):
     intro = f"{GREEN}Welcome to the Movie Reservation System! Type help or ? to list commands.{RESET}"
-    prompt = (f"╭─{WHITE}developer@{LIGHT_CYAN}movie-reservation{RESET}\n"
-              f"╰─ {LIGHT_CYAN}~{RESET} ")
+    prompt = (f"╭─{WHITE}developer@{LIGHT_CYAN}movie-reservation{RESET}\n╰─ {LIGHT_CYAN}~{RESET} ")
 
     def __init__(self, theatre_service, reservation_service, user_service, showtime_service):
         super().__init__()
@@ -28,6 +27,8 @@ class MovieSystemCLI(cmd.Cmd):
         self.utilities = Utilities()
         self.initializer = Initializer(theatre_service, reservation_service, user_service, showtime_service)
         self.initializer.init()
+
+        print(self.showtime_service.get_showtimes_alphabetically())
 
     def do_reserve(self, arg):
         """
@@ -64,8 +65,17 @@ class MovieSystemCLI(cmd.Cmd):
         # Step 5: Input seat name
         seat_name = input(f"{BLUE}Enter seat name (e.g., A4): {RESET}").strip()
 
+        if seat_name not in selected_showtime.seat_details:
+            print(f"{RED}You entered an invalid seat name.{RESET}")
+            return
+
         # Step 6: Input email
         email = input(f"{BLUE}Enter your email: {RESET}").strip()
+
+        if not self.is_valid_email(email):
+            print(f"{RED}You entered an invalid email type.{RESET}")
+            return
+
         user = self.user_service.get_user(email)
         if not user:
             print(f"{YELLOW}No account found for {email}. Creating a new account...{RESET}")
@@ -150,3 +160,7 @@ class MovieSystemCLI(cmd.Cmd):
                 for seat in row
             )
             print(row_display)
+
+    def is_valid_email(self, email):
+        email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+        return bool(re.match(email_regex, email))

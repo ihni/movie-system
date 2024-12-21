@@ -1,1 +1,2 @@
 tabulate
+prompt_toolkit==3.0.48
