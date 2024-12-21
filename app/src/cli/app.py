@@ -1,6 +1,7 @@
 import cmd
 from ..utilities import Utilities
 from datetime import datetime
+from tabulate import tabulate
 import os
 import re
 from ..initialization.initializer import Initializer
@@ -28,8 +29,6 @@ class MovieSystemCLI(cmd.Cmd):
         self.initializer = Initializer(theatre_service, reservation_service, user_service, showtime_service)
         self.initializer.init()
 
-        print(self.showtime_service.get_showtimes_alphabetically())
-
     def do_reserve(self, arg):
         """
         Reserve a seat for a movie: reserve <movie_title>
@@ -37,7 +36,7 @@ class MovieSystemCLI(cmd.Cmd):
         movie_title = arg.strip()
 
         if not movie_title:
-            print(f"{YELLOW}Enter a movie title: reserve <movie_title>{RESET}")
+            print(f"{YELLOW}Enter a movie title: reserve <movie_title>\nFeel free to type <list_movies> to search for movies to reserve{RESET}")
             return
 
         # Step 1: Find the movie showtimes (not the movie directly)
@@ -67,6 +66,9 @@ class MovieSystemCLI(cmd.Cmd):
 
         if seat_name not in selected_showtime.seat_details:
             print(f"{RED}You entered an invalid seat name.{RESET}")
+            return
+        elif seat_name in selected_showtime.booked_seats:
+            print(f"{YELLOW}Cannot book {seat_name}, Already taken.")
             return
 
         # Step 6: Input email
