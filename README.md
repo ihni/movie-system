@@ -17,6 +17,9 @@ This project is a movie reservation system to display data structures and algori
 - **Hashmap**: Storing showtimes, movies, theatres, users, and reservations.
 - **Linked List**: Used for managing the reservation history of a user.
 
+## Requirements
+- [Python](https://www.python.org/downloads/) (version 3.13.1 above)
+
 ## Installation
 
 1. Clone this repository to your home folder:
@@ -54,7 +57,3 @@ This project is a movie reservation system to display data structures and algori
 - **list_movies**: List all available movies sorted alphabetically.
 - **view_reservations <email>**: View all reservations for a specific email address.
 - **exit**: Exit the application.
-
- ### 3. Flow of Reservation:
- 1. Reserve a seat:
- - 
