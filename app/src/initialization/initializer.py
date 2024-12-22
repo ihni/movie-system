@@ -148,7 +148,7 @@ class Initializer:
             col = random.randint(1, cols)  # 1 to max column
             seat_name = f"{row}{col}"
 
-            result = self.reservation_service.create_reservation(
+            self.reservation_service.create_reservation(
                 email=user.email,
                 showtime=random_showtime,
                 seat_name=seat_name

@@ -106,7 +106,7 @@ class MovieSystemCLI(cmd.Cmd):
 
         if showtimes:
             print(f"{GREEN}Available Movies ({sort_by}):{RESET}")
-            seen_movies = set()  # To avoid printing duplicate movie titles
+            seen_movies = set()
             for showtime in showtimes:
                 movie_title = showtime.movie.title
                 if movie_title not in seen_movies:

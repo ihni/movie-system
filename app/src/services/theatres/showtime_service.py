@@ -103,11 +103,11 @@ class ShowtimeService:
 
         sorted_datetimes = self.sort_function(unsorted_datetimes)
 
-        sorted_datetimes = []
+        sorted_latest_showtimes = []
         for sorted_datetime in sorted_datetimes:
-            sorted_datetimes.append(datetime_to_showtime[sorted_datetime])
+            sorted_latest_showtimes.append(datetime_to_showtime[sorted_datetime])
         
-        return sorted_datetimes
+        return sorted_latest_showtimes
 
     def get_showtimes(self):
         return list(self.showtimes.values())
