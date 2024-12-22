@@ -1,6 +1,6 @@
 # Movie Reservation System with Data Structures and Algorithms
 
-This project is a movie reservation system to display data structures and algorithms for handling functionality such as seat reservation, movie showtimes, and user management.
+This project is a movie reservation system to display data structures and algorithms for seat reservations, movie showtimes, and user management.
 
 ## Features
 
@@ -29,7 +29,7 @@ This project is a movie reservation system to display data structures and algori
     ```bash
     cd movie-system
     ```
-3. Install dependencies (if any):
+3. Install dependencies:
 
     ```bash
     pip install -r requirements.txt
