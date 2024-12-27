@@ -1,6 +1,6 @@
 # Movie Reservation System with Data Structures and Algorithms
 
-This project is a movie reservation system that incorporates various data structures and algorithms to handle functionality such as seat reservation, movie showtimes, and user management.
+This project is a movie reservation system to display data structures and algorithms for seat reservations, movie showtimes, and user management.
 
 ## Features
 
@@ -11,11 +11,14 @@ This project is a movie reservation system that incorporates various data struct
 - **Seat Matrix Display**: Visualize available and reserved seats for a particular showtime.
 
 ## Data Structures and Algorithms Used
-
+- **Matrix**: Used for displaying the seats in a row-column order.
 - **Merge Sort**: Used for sorting movie titles and showtimes.
 - **Binary Search**: Used for searching movie titles.
 - **Hashmap**: Storing showtimes, movies, theatres, users, and reservations.
 - **Linked List**: Used for managing the reservation history of a user.
+
+## Requirements
+- [Python](https://www.python.org/downloads/) (version 3.13.1 above)
 
 ## Installation
 
@@ -29,7 +32,7 @@ This project is a movie reservation system that incorporates various data struct
     ```bash
     cd movie-system
     ```
-3. Install dependencies (if any):
+3. Install dependencies:
 
     ```bash
     pip install -r requirements.txt
@@ -54,16 +57,3 @@ This project is a movie reservation system that incorporates various data struct
 - **list_movies**: List all available movies sorted alphabetically.
 - **view_reservations <email>**: View all reservations for a specific email address.
 - **exit**: Exit the application.
-
- ### 3. Flow of Reservation:
- 1. Reserve a seat:
- - 
-
- ## Contributing
-
- Contributions are welcome! If you have any suggestions or want to fix a bug, feel free to fork the repository and submit a pull request.
- 1. Fork the repository.
- 2. Create a new branch (git checkout -b feature-branch).
- 3. Make your changes and commit them (git commit -am 'Add new feature').
- 4. Push to the branch (git push origin feature-branch)
- 5. Open a pull request.
